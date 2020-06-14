@@ -9,6 +9,7 @@
 
 PImage img;
 int w = 120;
+int img_size = 350;
 
 // It's possible to convolve the image with many different 
 // matrices to produce different effects. This is a high-pass 
@@ -34,26 +35,28 @@ float[][] SSaturation ={ { 1.0,1.0,1.0 },
 
 float[][] GaussianBlur = { { 1.0,2.0,1.0 },
                          { 2.0,4.0,2.0 },
-                         { 1.0,2.0,1.0 } }; ; 
+                         { 1.0,2.0,1.0 } };
 
 
 void setup() {
-  size(640, 640);
+  size(700, 700);
   img = loadImage("https://www.seekpng.com/png/detail/174-1740914_27kib-423x632-kirby-sword-sword-kirby-battle-royale.png"); // Load the original image
-  img.resize(640, 640) ;
+  img.resize(img_size, img_size);
 }
 
-void draw() {
-  //draw the image
+void draw(){
   image(img, 0, 0);
+  image(create_image(Sharpen), img_size, 0);
+  image(create_image(GaussianBlur), 0, img_size);
+  image(create_image(Edge), img_size, img_size);
+}
+
+PImage create_image(float[][] matrix) {
   
-  float[][] matrix = Edge;
+  PImage new_image = createImage(img.width, img.height, RGB);
   
-  // set the scalar filter in case is a blur 
- if(matrix == GaussianBlur)
-  {
-    filterScalar = 0.0625; // equals to 1/16
-  }  
+  // set the scalar filter in case is a blur  
+  filterScalar = (matrix==GaussianBlur)? 0.0625 : 1;
   
   int matrixsize = 3;
   loadPixels();
@@ -63,10 +66,12 @@ void draw() {
     for (int y = 0; y < img.height; y++ ) {
       color c = convolution(x, y, matrix, matrixsize, img);
       int loc = x + y*img.width;
-      pixels[loc] = c;
+      new_image.pixels[loc] = c;
     }
   }
-  updatePixels();
+  new_image.updatePixels();
+  
+  return new_image;
 }
 
 color convolution(int x, int y, float[][] matrix, int matrixsize, PImage img)

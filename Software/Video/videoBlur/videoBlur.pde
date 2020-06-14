@@ -1,69 +1,94 @@
 import processing.video.*;
 Movie myMovie;
-color imgv[];
-color blur[];
+
+float filterScalar = 1.0;
+
+float[][] Saturation = { { -1.0, -1.0, -1.0 },
+                     { -1.0,  9.0, -1.0 },
+                     { -1.0, -1.0, -1.0 } }; 
+
+float[][] Edge = { { -1.0, -1.0, -1.0 },
+                     { -1.0,  8.0, -1.0 },
+                     { -1.0, -1.0, -1.0 } }; 
+
+float[][] Sharpen = { { 0, -1, 0 },
+                     { -1,  5, -1 },
+                     { 0, -1, 0 } }; 
+                     
+float[][] SSaturation ={ { 1.0,1.0,1.0 },
+                         { 1.0,1.0,1.0 },
+                         { 1.0,1.0,1.0 } }; 
+
+float[][] GaussianBlur = { { 1.0,2.0,1.0 },
+                         { 2.0,4.0,2.0 },
+                         { 1.0,2.0,1.0 } };
+
 
 void setup() {
-  size(1000, 800);
+  size(1120, 640);
   noStroke();
   myMovie = new Movie(this, "small.mp4");
-  myMovie.play();
-  //myMovie.loop();
-  imgv = new color[1920 * 1080];
-  blur = new color[1920 * 1080];
+  myMovie.loop();
 }
 
-void draw() {
-  //Matriz Gauss
-  float e = 2.7182818284;
-  int sigma = 3;
-  float pi = 3.14159265359;
-  int kernel = 15; 
-  double gauss[] = new double[kernel];
-  // Se llena la matriz de convolucion gaussiana
-  float sum = 0;
-  float s = pow(sigma, 2);
-  for (int i = -kernel/2; i < kernel/2; i++) {
-    gauss[i+int(kernel/2)] = (1/(2*pi*s)) * (Math.pow(e, (-(i*i)/(2*s))));
-    sum += gauss[i+int(kernel/2)];
-  }
-  // Normalizacion
-  for (int i = 0; i < kernel; i++) {
-    gauss[i] /=sum;
-  }
-  double convolution[] = gauss;
+void movieEvent(Movie m) {
+  m.read();
+}
 
-  //Lectura de Pixeles
-  if (myMovie.available() == true) {
-    myMovie.read();
-    myMovie.loadPixels();
-    for (int i = 0; i < (myMovie.width * myMovie.height); i++) {
-      color c = myMovie.pixels[i];
-      imgv[i] = c;
+void draw(){
+  image(myMovie, 0, 0);
+  image(create_image(myMovie, Sharpen), myMovie.width, 0);
+  image(create_image(myMovie, GaussianBlur), 0, myMovie.height);
+  image(create_image(myMovie, Edge), myMovie.width, myMovie.height);
+}
+
+PImage create_image(Movie img, float[][] matrix) {
+  
+  PImage new_image = createImage(img.width, img.height, RGB);
+  
+  // set the scalar filter in case is a blur  
+  filterScalar = (matrix==GaussianBlur)? 0.0625 : 1;
+  
+  int matrixsize = 3;
+  loadPixels();
+  
+  // Begin our loop
+  for (int x = 0; x < img.width; x++) {
+    for (int y = 0; y < img.height; y++ ) {
+      color c = convolution(x, y, matrix, matrixsize, img);
+      int loc = x + y*img.width;
+      new_image.pixels[loc] = c;
     }
   }
+  new_image.updatePixels();
+  
+  return new_image;
+}
 
-  //Convolucion
-  for (int i = 0; i < imgv.length; i++) {
-    float r = 0;
-    float g = 0;
-    float b = 0;
-    for (int k = -convolution.length/2; k < convolution.length/2; k++) {
-      if (i+k < imgv.length && i+k > 0) {
-        r += red(imgv[i+k])*(float)(convolution[k+convolution.length/2]);
-        g += green(imgv[i+k])*(float)(convolution[k+convolution.length/2]);
-        b += blue(imgv[i+k])*(float)(convolution[k+convolution.length/2]);
-      }
-    }
-    blur[i] = color(r, g, b);
-  }
-
-  //Salida de video con efecto
-  background(255);
-  for (int j = 0; j < myMovie.height; j++) {
-    for (int i = 0; i < myMovie.width; i++) {
-      fill(blur[(j*myMovie.width) + i]);
-      rect(i, j, 1, 1);
+color convolution(int x, int y, float[][] matrix, int matrixsize, PImage img)
+{
+  float rtotal = 0.0;
+  float gtotal = 0.0;
+  float btotal = 0.0;
+  int offset = matrixsize / 2;
+  for (int i = 0; i < matrixsize; i++){
+    for (int j= 0; j < matrixsize; j++){
+      // What pixel are we testing
+      int xloc = x+i-offset;
+      int yloc = y+j-offset;
+      int loc = xloc + img.width*yloc;
+      // Make sure we haven't walked off our image, we could do better here
+      loc = constrain(loc,0,img.pixels.length-1);
+      // Calculate the convolution
+      rtotal += (red(img.pixels[loc]) * matrix[i][j] * filterScalar   );
+      gtotal += (green(img.pixels[loc]) * matrix[i][j] * filterScalar );
+      btotal += (blue(img.pixels[loc]) * matrix[i][j] * filterScalar  );
     }
   }
+  // Make sure RGB is within range
+  rtotal = constrain(rtotal, 0, 255);
+  gtotal = constrain(gtotal, 0, 255);
+  btotal = constrain(btotal, 0, 255);
+  // Return the resulting color
+  return color(rtotal, gtotal, btotal);
 }

@@ -3,13 +3,15 @@ PImage img;
 //PFont mono = loadFont("CourierNewPSMT-12.vlw");
 
 void setup() {
-  //size(800, 800);
-  size(900, 1000);
-  //img = loadImage("https://c4.wallpaperflare.com/wallpaper/669/829/302/silk-water-photography-wallpaper-preview.jpg"); // Load the original image
+  size(1400, 700);
+  //size(900, 1000);
+  //img = loadImage("https://pbs.twimg.com/media/DnYgTB1V4AAMnNy.jpg"); // Load the original image
   img = loadImage("https://www.seekpng.com/png/detail/174-1740914_27kib-423x632-kirby-sword-sword-kirby-battle-royale.png"); // Load the original image
-  img.resize(500, 350);
-  img.resize(250, 175);
-//img.resize(125, 86) ;
+  img.resize(700, 700);
+  image(img, 0, 0);
+  //img.resize(500, 350);
+  img.resize(200, 112);
+  //img.resize(125, 86) ;
   noLoop();
 } 
 
@@ -40,5 +42,5 @@ void draw() {
   textFont(loadFont("CourierNewPSMT-12.vlw"), 6);
   fill(0);
   //image(edgeImg, width/2, 0); // Draw the new 
-  text(asciiImage, 0, 0);
+  text(asciiImage, 700, 0);
 }

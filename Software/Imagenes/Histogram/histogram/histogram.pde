@@ -10,14 +10,14 @@
  * since most images will no longer be full 24-bit color.
  */
 
-size(800 , 800);
+size(700, 700);
 
 // Load an image from the data directory
 // Load a different image by modifying the comments
-PImage img = loadImage("https://spideridentifications.com/wp-content/uploads/2019/02/Cobalt-Blue-Tarantula-Fangs.jpg");
-img = loadImage("https://poesiabinaria.net/wp-content/uploads/2010/03/lenna_main.jpg");
-img = loadImage("lenna.jpg");
-img.resize(800,800);
+PImage img;
+img = loadImage("https://pm1.narvii.com/6737/a0189ca5eae2ccd5916b8df883ac3749cfec58d8v2_hq.jpg");
+//img = loadImage("https://poesiabinaria.net/wp-content/uploads/2010/03/lenna_main.jpg");
+img.resize(700, 700);
 image(img, 0, 0);
 img.loadPixels();
 
