@@ -6,7 +6,7 @@ Hacer una pequeña introduccion a temas de computacion visual como análisis de 
 
 Hacer un demo exploratorio de visualizacion de datos, utilizando datos libres sobre el uso de bicicletas en la ciudad de NY
 
-## Tareas
+## Trabajos Realizados
 
 Analisis de Imagen:
 
