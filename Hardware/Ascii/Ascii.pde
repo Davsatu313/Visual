@@ -10,13 +10,16 @@ void setup(){
   img.resize(img_size, img_size);
   
   ascii = loadShader("ascii.glsl");
-  ascii.set("iResolution", float(width)/2, float(height));
+  ascii.set("iResolution", float(width), float(height));
 }
 
 void draw(){
   resetShader();
-  image(img, img_size, 0);
- 
-  shader(ascii);
+  
+  //shader(ascii); //This flip the image upside down kek
+  
   image(img, 0, 0);
+  
+  filter(ascii);
+  image(img, img_size, 0);
 }
