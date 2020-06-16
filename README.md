@@ -22,7 +22,7 @@ Visualizacion de datos:
 
 ## Integrantes
 
-|       Integrante      |                 github nick                   |
+|       Integrante      |                 github                        |
 |-----------------------|-----------------------------------------------|
 | David Fajardo| [davsatu313](https://github.com/davsatu313) |
 | Angel Corredor   | [adcorredorm](https://github.com/adcorredorm)       |
