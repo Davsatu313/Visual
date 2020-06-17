@@ -7,7 +7,7 @@ PShape original, frame;
 int img_size = 560;
 
 void setup(){
-  size(1120, 320, P2D);
+  size(1120, 320, P3D);
   mov = new Movie(this, "small.mp4");
   mov.play();
   
@@ -20,16 +20,10 @@ void movieEvent(Movie m) {
 }
 
 void draw(){
-  
-  img = createImage(mov.width, mov.height, RGB);
-  for (int y = 0; y < mov.height  * mov.width; y++){
-    img.pixels[y] = mov.pixels[y];
-  }
-  
   resetShader();
-  image(img, 0, 0);
-  
+  image(mov, 0, 0);  
   filter(ascii);
   //shader(ascii); //This flip the image upside down kek
-  image(img, img_size, 0);
+  image(mov, img_size, 0);
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || Shaser ASCII ");
 }

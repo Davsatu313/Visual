@@ -63,19 +63,15 @@ void draw(){
   for(int i = 0; i < k_variables.length; i++)
     kernel.set(k_variables[i], matrix[i]);
     
-  img = createImage(mov.width, mov.height, RGB);
-  for (int y = 0; y < mov.height  * mov.width; y++){
-    img.pixels[y] = mov.pixels[y];
-  }
-  
   resetShader();
-  image(img, 0, 0);
+  image(mov, 0, 0);
   
   shader(kernel);
-  image(img, 0, img_h);
+  image(mov, 0, img_h);
   
   
   //shape(original);
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || Shaser Convoluciones ");
 }
 
 void mousePressed(){

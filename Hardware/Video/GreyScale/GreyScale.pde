@@ -20,20 +20,18 @@ void movieEvent(Movie m) {
 }
 
 void draw(){
-  original_sh = createImage(mov.width, mov.height, RGB);
-  for (int y = 0; y < mov.height  * mov.width; y++){
-    original_sh.pixels[y] = mov.pixels[y];
-  }
   
   resetShader();
-  image(original_sh, 0, 0);
+  image(mov, 0, 0);
   
   shader(basic);
-  image(original_sh, img_w, 0);
+  image(mov, img_w, 0);
   
   shader(average);
-  image(original_sh, 0, img_h);
+  image(mov, 0, img_h);
   
   shader(luma);
-  image(original_sh, img_w, img_h);
+  image(mov, img_w, img_h);
+  
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || Shader GreyScale ");
 }
