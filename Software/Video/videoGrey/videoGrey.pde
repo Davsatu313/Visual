@@ -36,4 +36,6 @@ void draw(){
     image(average, 0, myMovie.height);
     image(luma, myMovie.width, myMovie.height);
   }
+  
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || videoGrey ");
 }

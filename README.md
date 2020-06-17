@@ -63,10 +63,6 @@ Visualizacion de datos:
 * **Histograma de intensidad**: Se agrega un histograma a una imagen  que nos va a representar  distribución de frecuencia de los niveles de gris con el número de valores de negro puro que se muestran a la izquierda y el número de valores de blanco puro representados a la derecha.
 
 
-* **Medir la eficiencia computacional para las operaciones realizadas a los videos**:
- 
-Aqui se ponen imagenes perronas de los FPS
-
 **Procesamiento por hardware:**
 
 *  **Conversión a escala de grises**: 
@@ -97,8 +93,6 @@ Aqui se ponen imagenes perronas de los FPS
 
 **Video**:l poder usar la libreria de video para poder hacer analisis de cada uno de los frames es posible aplicar el mismo shader que se uso para las imagenes, aqui es importante resaltar el hecho de que no es necesario el hecho de tener que tener como input un video extremadamente pequeño en resolucion, puesto que la capacidad computacional por hardware hace que sea mucho más rapido el calculo, pero el consumo de recursos de la misma manera aumenta considerablemente.
 
-* **Medir la eficiencia computacional para las operaciones realizadas a los videos**:
-
-
 ## Resultados
 
++ ![Escala de grises por hardware] (/Images/HGrey.png)

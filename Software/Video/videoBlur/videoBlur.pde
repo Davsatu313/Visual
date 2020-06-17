@@ -40,6 +40,8 @@ void draw(){
   image(create_image(myMovie, Sharpen), myMovie.width, 0);
   image(create_image(myMovie, GaussianBlur), 0, myMovie.height);
   image(create_image(myMovie, Edge), myMovie.width, myMovie.height);
+  
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || videoBlur ");
 }
 
 PImage create_image(Movie img, float[][] matrix) {

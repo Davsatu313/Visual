@@ -43,4 +43,6 @@ void draw() {
   fill(0);
   image(edgeImg, 0, 0);
   text(asciiImage, mov.width, 0);
+  
+  surface.setTitle("FPS " + nf(int(frameRate), 2) + " || vAscii ");
 }
