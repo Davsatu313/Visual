@@ -100,5 +100,5 @@ Aqui se ponen imagenes perronas de los FPS
 * **Medir la eficiencia computacional para las operaciones realizadas a los videos**:
 
 
-* **Resultados**:
+## Resultados
 
