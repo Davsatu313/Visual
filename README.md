@@ -95,4 +95,32 @@ Visualizacion de datos:
 
 ## Resultados
 
-+ ![Escala de grises por hardware] (/Images/HGrey.png)
+### Imagenes 
+- Filtro de Blanco y Negro por **Software**
+  ![SGrey](Images/SGrey.png)
+- Mascaras de convolucion por **Software**
+  ![SConv](Images/SConv.png)
+- Histograma de tonos
+  ![SHist](Images/SHist.png)
+- Conversion a codigo ASCII por **Software**
+  ![SAscii](Images/SAcii.png)
+- Filtro de Blanco y Negro por **Hardware**
+  ![HGrey](Images/HGrey.png)
+- Mascaras de convolucion por **Hardware**
+  ![HConv](Images/HConv.png)
+- Conversion a codigo ASCII por **Hardware**
+  ![HAscii](Images/HAscii.png)
+
+### Video
+- Filtro de Blanco y Negro por **Software**
+  ![SvGrey](Images/SvGrey.png)
+- Mascaras de convolucion por **Software**
+  ![SvConv](Images/SvConv.png)
+- Conversion a codigo ASCII por **Software**
+  ![SvAscii](Images/SvAscii.png)
+- Filtro de Blanco y Negro por **Hardware**
+  ![HvGrey](Images/HvGrey.png)
+- Mascaras de convolucion por **Hardware**
+  ![HvConv](Images/HvConv.png)
+- Conversion a codigo ASCII por **Hardware**
+  ![HvAscii](Images/HvAscii.png)
